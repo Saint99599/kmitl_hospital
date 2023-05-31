@@ -1,95 +1,69 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BookingContext } from '../function/BookingContext';
+import DateDropdown from '../component/DateDropdown';
+import TimeSelector from '../component/TimeSelector';
 
 function Booking() {
+  const navigate = useNavigate();
   const { bookingData } = useContext(BookingContext);
+  const [selectedDay, setSelectedDay] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
 
-  const [selectedOption, setSelectedOption] = useState('');
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
+  const handleDateChange = (month, day, year) => {
+    setSelectedMonth(month);
+    setSelectedDay(day);
+    setSelectedYear(year);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Selected Option:', selectedOption);
+  const handleTimeChange = (time) => {
+    setSelectedTime(time);
   };
+
+  const handleSubmit = () => {
+    navigate('/inputbooking', {
+      state: {
+        selectedDate: formattedSelectedDate,
+        selectedTime,
+        fname: bookingData?.fname,
+        lname: bookingData?.lname,
+        image: bookingData?.image,
+        department: bookingData?.department,
+      },
+    });
+  };
+
+  const formattedSelectedDate = selectedDay && selectedMonth && selectedYear ? new Date(selectedYear, selectedMonth - 1, selectedDay).toLocaleDateString(): '';
 
   return (
-    <div className='flex justify-center '>
+    <div className='flex justify-center'>
       <div className="w-2/3 h-72 flex bg-white shadow-2xl rounded-lg">
         <img className="h-full w-52" src={bookingData?.image} alt="doctorImage" />
-        <div className="w-full bg-white pt-4 flex justify-center">
-          <div className='flex justify-start'>
-            <p className="font-roboto font-bold text-lg text-gray-700 mb-4">เลือกวันที่</p>
+        <div className="w-full bg-white pt-5 px-5">
+          <div className="mb-5">
+            <p className="font-roboto font-bold text-xl text-gray-700 mb-1">{bookingData?.fname} {bookingData?.lname}</p>
+            <p className="font-roboto text-lg text-gray-700">Department :</p>
+            <p className="font-roboto font-bold text-lg text-gray-700">{bookingData?.department}</p>
+          </div>
+          <div>
+            <p className="font-roboto font-bold text-xl text-gray-700 mb-1 border-l-6 border-red-500">เลือกวันที่</p>
+            <DateDropdown
+              selectedDate={{ day: selectedDay, month: selectedMonth, year: selectedYear }}
+              onDateChange={handleDateChange}
+            />
+            <p>{formattedSelectedDate}</p>
+          </div>
+          <div>
+            <p className="font-roboto font-bold text-xl text-gray-700 mb-1 border-l-6 border-red-500">เลือกเวลา</p>
+            <TimeSelector selectedTime={selectedTime} onTimeChange={handleTimeChange} />
+            <p>{selectedTime}</p>
           </div>
         </div>
-        <div className="w-full bg-white pt-4 flex justify-center">
-          <p className="font-roboto font-bold text-lg text-gray-700 mb-4">เลือกเวลา</p>
-          <form onSubmit={handleSubmit}>
-      <label>
-        <input
-          type="radio"
-          value="option1"
-          checked={selectedOption === 'option1'}
-          onChange={handleOptionChange}
-        />
-        Option 1
-      </label>
-
-      <label>
-        <input
-          type="radio"
-          value="option2"
-          checked={selectedOption === 'option2'}
-          onChange={handleOptionChange}
-        />
-        Option 2
-      </label>
-
-      <label>
-        <input
-          type="radio"
-          value="option3"
-          checked={selectedOption === 'option3'}
-          onChange={handleOptionChange}
-        />
-        Option 3
-      </label>
-
-      <button type="submit">Submit</button>
-    </form>
-        </div>
-        <div className="w-full bg-white pt-4 flex justify-center">
-          <p className="font-roboto font-bold text-lg text-gray-700 mb-4">
-            {bookingData?.fname} {bookingData?.lname}
-          </p>
-        </div>
-          {/* <p className="font-roboto font-normal text-xs leading-4 text-gray-700 mb-3">
-            ID : {employee.id}
-          </p>
-          <p className="font-roboto font-normal text-xs leading-4 text-gray-700">
-            Department :
-          </p>
-          <p className="font-roboto font-bold text-sm leading-4 text-gray-700 mb-3">
-            {employee.department}
-          </p>
-          <p className="font-roboto font-normal text-xs leading-4 text-gray-700">
-            Language :
-          </p>
-          <p className="font-roboto font-bold text-sm leading-4 text-gray-700">
-            {employee.language.join(', ')}
-          </p> */}
-        
       </div>
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>ส่งค่า</button>
     </div>
-    
-    // <div>
-    //   <h1>Booking Details</h1>
-    //   <p>Employee: {bookingData?.fname} {bookingData?.lname}</p>
-    //   <p>Department: {bookingData?.department}</p>
-    //   <p>Languages: {bookingData?.language?.join(', ')}</p>
-    // </div>
   );
 }
 

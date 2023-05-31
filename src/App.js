@@ -5,6 +5,7 @@ import { BookingProvider } from './function/BookingContext';
 import Login from './page/Login';
 import Home from './page/Home';
 import Booking from './page/ฺBooking';
+import InputBooking from './page/InputBooking';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route index exact path="/" element={<Login />} />
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/booking" element={<Booking />} />
+          <Route exact path="/inputbooking" element={<InputBooking/>} />
         </Routes>
       </BookingProvider>
     </BrowserRouter>

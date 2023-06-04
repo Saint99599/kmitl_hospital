@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate} from 'react-router-dom';
 
-function InputForm() {
+function InputBooking() {
     const location = useLocation();
     const { selectedDate, selectedTime, fname, lname, image, department} = location.state || {};
     
@@ -67,90 +67,231 @@ function InputForm() {
     setPatientTemperature(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate('/confirmbooking', {
+      state: {
+        image,
+        fname,
+        lname,
+        department,
+        selectedDate,
+        selectedTime,
+        patientFname,
+        patientLname,
+        patientIDcard,
+        patientID,
+        patientSex,
+        patientNation,
+        patientTell,
+        patientEmail,
+        patientSymptom,
+        patientWeight,
+        patientTall,
+        patientBloodType,
+        patientPressure,
+        patientHR,
+        patientTemperature
+      },
+    });
+  };
+
+  const handleBack = () => {
+    navigate('/booking');
   };
 
   return (
-    <div>
-        <div>
-            <p>{fname} {lname}</p><br/>
-            <p>{image}</p><br/>
-            <p>{department}</p><br/>
-            <p>{selectedDate}</p><br/>
-            <p>{selectedTime}</p>
+    <div className='pt-20'>
+      <div className="border-l-8 border-orange-600 pl-1.5 mb-9 ml-40 ">
+        <h1 className="font-roboto font-semibold text-4xl">ข้อมูลการนัดหมายแพทย์</h1>
+      </div>
+
+      <form className='flex flex-col items-center' onSubmit={handleSubmit}>
+        <div className="w-3/5 flex bg-white shadow-2xl rounded-xl overflow-hidden">
+          <img className="h-full w-52" src={image} alt="doctorImage" />
+          <div className="w-full bg-white py-5 px-5">
+            <div className="mb-5">
+              <p className="font-roboto font-bold text-xl text-gray-700 mb-1">{fname} {lname}</p>
+              <p className="font-roboto text-lg text-gray-700">Department :</p>
+              <p className="font-roboto font-bold text-lg text-gray-700">{department}</p>
+            </div>
+            <div className='mb-4'>
+              <div className='border-l-4 border-orange-600 pl-1.5 '>
+                <p className="font-roboto font-bold text-xl text-gray-700 mb-3.5">เลือกวันที่</p>
+              </div>
+              <p>{selectedDate}</p>
+            </div>
+            <div className='mb-4'>
+              <div className='border-l-4 border-orange-600 pl-1.5 '>
+                <p className="font-roboto font-bold text-xl text-gray-700 mb-3.5">เลือกเวลา</p>
+              </div>
+              <p>{selectedTime}</p>
+            </div>
+          </div>
         </div>
-        <form onSubmit={handleSubmit}>
-            <p>
-                <label>
-                    ชื่อ
-                    <input type="text" value={patientFname} onChange={handlePatientFname} />
-                </label>
-                <label>
-                    นามสกุล
-                    <input type="text" value={patientLname} onChange={handlePatientLname} />
-                </label>
-            </p>
-            <p>
-                รหัสบัตรประชาชน, Passport
-                <input type="text" value={patientIDcard} onChange={handlePatientIDcard} />
-            </p>
-            <p>
-                เลขประจำตัวผู้ป่วย (HN)
-                <input type="text" value={patientID} onChange={handlePatientID} />
-            </p>
-            <label>
-                เลือกตัวเลือก:
-                <select value={patientSex} onChange={handlePatientSex}>
-                    <option value="">เพศ</option>
-                    <option value="male">ชาย</option>
-                    <option value="female">หญิง</option>
-                </select>
-            </label>
-            <label>
-                สัญชาติ
-                <input type="text" value={patientNation} onChange={handlePatientNation} />
-            </label>
-            <label>
-                เบอรโทร
-                <input type="text" value={patientTell} onChange={handlePatientTell} />
-            </label>
-            <label>
-                อีเมล:
-                <input type="email" value={patientEmail} onChange={handlePatientEmail} />
-            </label>
-            <p>
-                อาการและปัญหา:
-                <textarea value={patientSymptom} onChange={handlePatientSymptom} />
-            </p>
-            <label>
-            น้ำหนัก
-                <input type="text" value={patientWeight} onChange={handlePatientWeight} />
-            </label>
-            <label>
-            ส่วนสูง
-                <input type="text" value={patientTall} onChange={handlePatientTall} />
-            </label>
-            <label>
-            หมู่โลหิต
-                <input type="text" value={patientBloodType} onChange={handlePatientBloodType} />
-            </label>
-            <label>
-            ความดัน (มิลลิเมตรปรอท)
-                <input type="text" value={patientPressure} onChange={handlePatientPressure} />
-            </label>
-            <label>
-            HR (bpm) *
-                <input type="text" value={patientHR} onChange={handlePatientHR} />
-            </label>
-            <label>
-            อุณหภูมิ (เซลเซียส) *
-                <input type="text" value={patientTemperature} onChange={handleTemperature} />
-            </label>
-            <button type="submit">ส่ง</button>
-        </form>
+
+        <div className='w-3/5 flex bg-white shadow-2xl rounded-xl overflow-hidden mt-11 flex-col p-8 '>
+          <p className='font-roboto font-normal font-bold text-3xl'>ข้อมูลผู้ป่วย</p>
+          <div className='px-24 mt-6'>
+            <div className='flex flex-col items-center '>
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full mr-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>ชื่อ </label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="text" value={patientFname} onChange={handlePatientFname} required/>
+                </div>
+
+                <div className='w-full ml-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>นามสกุล</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="text" value={patientLname} onChange={handlePatientLname} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>รหัสบัตรประชาชน, Passport</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" value={patientIDcard} onChange={handlePatientIDcard} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>เลขประจำตัวผู้ป่วย (HN)</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" value={patientID} onChange={handlePatientID} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full mr-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>เพศ</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <select className="border border-gray-400 rounded-lg h-9 focus:outline-none w-full" value={patientSex} onChange={handlePatientSex} required>
+                        <option value="">เพศ</option>
+                        <option value="ชาย">ชาย</option>
+                        <option value="หญิง">หญิง</option>
+                    </select>
+                </div>
+
+                <div className='w-full ml-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>สัญชาติ</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="text" value={patientNation} onChange={handlePatientNation} required/>
+                </div>
+              </div>
+              
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full mr-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>เบอรโทร</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="tel" value={patientTell} onChange={handlePatientTell} required/>
+                </div>
+
+                <div className='w-full ml-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>อีเมล</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="email" value={patientEmail} onChange={handlePatientEmail} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>อาการและปัญหา</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <textarea className="border border-gray-400 rounded-lg p-2.5 focus:outline-none w-full" value={patientSymptom} onChange={handlePatientSymptom} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full mr-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>น้ำหนัก</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" step="0.01" value={patientWeight} onChange={handlePatientWeight} required/>
+                </div>
+
+                <div className='w-full ml-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>ส่วนสูง</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" step="0.01" value={patientTall} onChange={handlePatientTall} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full mr-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>หมู่โลหิต</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="text" value={patientBloodType} onChange={handlePatientBloodType} required/>
+                </div>
+
+                <div className='w-full ml-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>ความดัน (มิลลิเมตรปรอท)</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" step="0.01" value={patientPressure} onChange={handlePatientPressure} required/>
+                </div>
+              </div>
+
+              <div className='flex w-full justify-between pb-2'>
+                <div className='w-full mr-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>HR (bpm)</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" value={patientHR} onChange={handlePatientHR} required/>
+                </div>
+
+                <div className='w-full ml-2.5'>
+                  <p>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-gray-400 ml-3.5'>อุณหภูมิ (เซลเซียส)</label>
+                    <label className='font-notosansthai font-normal font-bold text-sm text-red-600'>*</label>
+                  </p>
+                  <input className="border border-gray-400 rounded-lg h-9 p-2.5 focus:outline-none w-full" type="number" step="0.01" value={patientTemperature} onChange={handleTemperature} required/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='flex justify-around w-full m-11'>
+          <button className="w-32 h-11 font-roboto font-bold text-base py-1.5 rounded-lg text-white bg-orange-600" onClick={handleBack}>ย้อนกลับ</button>
+          <button className="w-32 h-11 font-roboto font-bold text-base py-1.5 rounded-lg text-white bg-orange-600" type="submit">ถัดไป</button>
+        </div>
+      </form>
+        
     </div>
   );
 }
 
-export default InputForm;
+export default InputBooking;

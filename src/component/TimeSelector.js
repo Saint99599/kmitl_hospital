@@ -10,10 +10,10 @@ function TimeSelector({ selectedTime, onTimeChange }) {
 
   return (
     <div>
-      <button onClick={() => handleOptionClick('9-10')} style={{ background: selectedOption === '9-10' ? 'red' : 'transparent' }}> 9.00 น. - 10.00 น. </button>
-      <button onClick={() => handleOptionClick('11-12')} style={{ background: selectedOption === '11-12' ? 'red' : 'transparent' }}> 11.00 น. - 12.00 น. </button>
-      <button onClick={() => handleOptionClick('17-18')} style={{ background: selectedOption === '17-18' ? 'red' : 'transparent' }}> 17.00 น. - 18.00 น. </button>
-      <button onClick={() => handleOptionClick('19-20')} style={{ background: selectedOption === '19-20' ? 'red' : 'transparent' }}> 19.00 น. - 20.00 น. </button>
+      <button className={`mr-2 font-roboto font-bold text-base px-3 py-1.5 rounded-lg text-white bg-orange-300 ${selectedOption === '9-10' ? 'bg-orange-600' : ''}`} onClick={() => handleOptionClick('9-10')}> 9.00 น. - 10.00 น. </button>
+      <button className={`mr-2 font-roboto font-bold text-base px-3 py-1.5 rounded-lg text-white bg-orange-300 ${selectedOption === '11-12' ? 'bg-orange-600' : ''}`} onClick={() => handleOptionClick('11-12')}> 11.00 น. - 12.00 น. </button>
+      <button className={`mr-2 font-roboto font-bold text-base px-3 py-1.5 rounded-lg text-white bg-orange-300 ${selectedOption === '17-18' ? 'bg-orange-600' : ''}`} onClick={() => handleOptionClick('17-18')}> 17.00 น. - 18.00 น. </button>
+      <button className={`mr-2 font-roboto font-bold text-base px-3 py-1.5 rounded-lg text-white bg-orange-300 ${selectedOption === '19-20' ? 'bg-orange-600' : ''}`} onClick={() => handleOptionClick('19-20')}> 19.00 น. - 20.00 น. </button>
     </div>
   );
 }

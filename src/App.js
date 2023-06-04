@@ -6,6 +6,7 @@ import Login from './page/Login';
 import Home from './page/Home';
 import Booking from './page/ฺBooking';
 import InputBooking from './page/InputBooking';
+import ConfirmBooking from './page/ConfirmBooking';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/booking" element={<Booking />} />
           <Route exact path="/inputbooking" element={<InputBooking/>} />
+          <Route exact path="/confirmbooking" element={<ConfirmBooking/>} />
         </Routes>
       </BookingProvider>
     </BrowserRouter>

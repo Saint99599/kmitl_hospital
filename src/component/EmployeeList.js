@@ -6,7 +6,7 @@ function employeeList() {
     <div className='flex justify-center'> 
         <div className='flex flex-wrap justify-between w-[1006px]'>
             {employeeArray.map((employee, idx) => (
-            <div className='w-fit drop-shadow-2xl rounded-xl' key={idx}>
+            <div className='w-fit drop-shadow-2xl rounded-xl overflow-hidden' key={idx}>
                 <Card employee={employee}/>
             </div>
             ))}

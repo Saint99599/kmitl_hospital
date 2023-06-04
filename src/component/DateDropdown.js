@@ -40,7 +40,7 @@ function DateDropdown({ selectedDate, onDateChange }) {
 
   return (
     <div className='ml-3'>
-      <select className="bg-white border border-gray-400 rounded-7 h-8" value={selectedDay} onChange={handleDayChange}>
+      <select className="border border-gray-400 rounded-md h-8" value={selectedDay} onChange={handleDayChange}>
         <option value="">วันที่</option>
         {days.map((day) => (
           <option key={day} value={day}>
@@ -48,7 +48,7 @@ function DateDropdown({ selectedDate, onDateChange }) {
           </option>
         ))}
       </select>
-      <select className="bg-white border border-gray-400 rounded-7 mx- h-8" value={selectedMonth} onChange={handleMonthChange}>
+      <select className="bg-white border border-gray-400 rounded-md mx-12 h-8" value={selectedMonth} onChange={handleMonthChange}>
         <option value="">เดือน</option>
         {months.map((month, index) => (
           <option key={index} value={index + 1}>
@@ -56,7 +56,7 @@ function DateDropdown({ selectedDate, onDateChange }) {
           </option>
         ))}
       </select>
-      <select className="bg-white border border-gray-400 rounded-7 h-8" value={selectedYear} onChange={handleYearChange}>
+      <select className="bg-white border border-gray-400 rounded-md h-8" value={selectedYear} onChange={handleYearChange}>
         <option value="">Year</option>
         {years.map((year) => (
           <option key={year} value={year}>

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const login = async (username, password, navigate) => {
     
-    const url = "http://localhost:3000/auth/login";
+    const url = "https://api.porapipat.me/auth/login";
     await axios({
       method: "POST",
       url: url,
@@ -36,7 +36,7 @@ const login = async (username, password, navigate) => {
     let config = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "http://localhost:3000/auth/register",
+      url: "https://api.porapipat.me/auth/register",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
@@ -61,7 +61,7 @@ const login = async (username, password, navigate) => {
     axios({
       method: 'GET',
       maxBodyLength: Infinity,
-      url: 'http://localhost:3000/auth/protected',
+      url: 'https://api.porapipat.me/auth/protected',
       headers: { 
         'Authorization': `Bearer ${token}`
       }
@@ -81,7 +81,7 @@ const login = async (username, password, navigate) => {
     axios({
       method: 'POST',
       maxBodyLength: Infinity,
-      url: 'http://localhost:3000/auth/logout',
+      url: 'https://api.porapipat.me/auth/logout',
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded'
       },
@@ -106,7 +106,7 @@ const login = async (username, password, navigate) => {
         axios({
           method: "POST",
           maxBodyLength: Infinity,
-          url: "http://localhost:3000/auth/refresh-token",
+          url: "https://api.porapipat.me/auth/refresh-token",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },

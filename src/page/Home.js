@@ -10,8 +10,8 @@ function Home() {
   useEffect(() => {
     // getRefreshToken(600000)
     setInterval(() => {
-      console.log('helloworld');
-    }, 5000);
+      console.log('useEffect: Home.js');
+    }, 60000);
       // console.log('helloworld');
   }, []);
 
@@ -22,7 +22,7 @@ function Home() {
     axios({
       method: 'POST',
       maxBodyLength: Infinity,
-      url: 'http://localhost:3000/auth/logout',
+      url: 'https://api.porapipat.me/auth/logout',
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded'
       },

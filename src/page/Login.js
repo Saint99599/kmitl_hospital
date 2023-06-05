@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import he from 'he'; 
 
 const Login = () => {
   const [username, setUser] = useState("");
@@ -9,7 +10,10 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (username === "qwerty" && password === "qwerty") {
+    const sanitizedUsername = he.encode(username); 
+    const sanitizedPassword = he.encode(password); 
+
+    if (sanitizedUsername === "qwerty" && sanitizedPassword === "qwerty") {
         navigate("/home");
     } else {
         alert("Login fail");
@@ -39,6 +43,7 @@ const Login = () => {
                             className="w-full bg-white shadow-lg rounded-lg outline-none border border-gray-300 p-2"
                             type="password"
                             value={password}
+                            pattern="/^[a-zA-Z0-9!@#\$%\^\&*_=+-]{8,12}$/g"
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />

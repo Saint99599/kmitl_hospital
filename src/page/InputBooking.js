@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate} from 'react-router-dom';
+import he from 'he';
 
 function InputBooking() {
     const location = useLocation();
@@ -67,10 +68,6 @@ function InputBooking() {
     setPatientTemperature(event.target.value);
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  // };
-
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -82,21 +79,21 @@ function InputBooking() {
         department,
         selectedDate,
         selectedTime,
-        patientFname,
-        patientLname,
-        patientIDcard,
-        patientID,
-        patientSex,
-        patientNation,
-        patientTell,
-        patientEmail,
-        patientSymptom,
-        patientWeight,
-        patientTall,
-        patientBloodType,
-        patientPressure,
-        patientHR,
-        patientTemperature
+        patientFname: he.encode(patientFname), 
+        patientLname: he.encode(patientLname), 
+        patientIDcard: he.encode(patientIDcard), 
+        patientID: he.encode(patientID), 
+        patientSex: he.encode(patientSex), 
+        patientNation: he.encode(patientNation), 
+        patientTell: he.encode(patientTell), 
+        patientEmail: he.encode(patientEmail), 
+        patientSymptom: he.encode(patientSymptom), 
+        patientWeight: he.encode(patientWeight), 
+        patientTall: he.encode(patientTall), 
+        patientBloodType: he.encode(patientBloodType), 
+        patientPressure: he.encode(patientPressure),
+        patientHR: he.encode(patientHR),
+        patientTemperature: he.encode(patientTemperature)
       },
     });
   };

@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import he from 'he'; 
+import { login } from '../function/AuthApi';
 
 const Login = () => {
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  
   const handleLogin = (e) => {
-    e.preventDefault();
+      e.preventDefault();
+      
+      const sanitizedUsername = he.encode(username); 
+      const sanitizedPassword = he.encode(password); 
 
-    const sanitizedUsername = he.encode(username); 
-    const sanitizedPassword = he.encode(password); 
+      // call login api
+      login(sanitizedUsername, sanitizedPassword, navigate);
 
-    if (sanitizedUsername === "qwerty" && sanitizedPassword === "qwerty") {
-        navigate("/home");
-    } else {
-        alert("Login fail");
-    }
+    // if (sanitizedUsername === "qwerty" && sanitizedPassword === "qwerty") {
+    //     navigate("/home");
+    // } else {
+    //     alert("Login fail");
+    // }
+    
   };
 
   return (
@@ -26,6 +31,7 @@ const Login = () => {
             <div className="w-2/3 h-2/3 p-4 ">
                 <h2 className="text-3xl my-2.5">ยินดีต้อนรับ</h2>
                 <h1 className="text-5xl leading-6 my-2.5 pb-4">เข้าสู่ระบบ</h1>
+                
                 <form onSubmit={handleLogin}>
                     <div className="my-5">
                         <p className="font-roboto font-normal font-400 text-base leading-5 text-gray-700 pb-2">Username</p>
@@ -34,7 +40,7 @@ const Login = () => {
                             type="text"
                             value={username}
                             onChange={(e) => setUser(e.target.value)}
-                            required
+                            // required
                         />
                     </div>
                     <div className="my-5">
@@ -45,11 +51,12 @@ const Login = () => {
                             value={password}
                             pattern="/^[a-zA-Z0-9!@#\$%\^\&*_=+-]{8,12}$/g"
                             onChange={(e) => setPassword(e.target.value)}
-                            required
+                            // required
                         />
                     </div>
                     <button className="bg-orange-500 rounded-lg font-roboto font-bold font-700 text-lg leading-6 text-white w-full h-12" type="submit">เข้าสู่ระบบ</button>
                 </form>
+            <a href="/register">คุณยังไม่มีบัญชีใช่หรือไม่? [click]</a>
             </div>
         </div>
     </div>
